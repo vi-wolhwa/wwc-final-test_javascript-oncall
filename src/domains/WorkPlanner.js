@@ -1,72 +1,49 @@
 import OPT from '../constants/Options.js';
+import PlanFactory from './plan/PlanFactory.js';
+import PlanUtility from './plan/PlanUtility.js';
+
+const { isHoliday, isWeekend } = PlanUtility;
 
 class WorkPlanner {
   #plan;
 
   constructor(month, firstDow) {
-    this.initializePlan(month, firstDow);
+    const factory = new PlanFactory(firstDow);
+    const daysInMonth = OPT.DATE.daysInMonth[month];
+    this.#plan = Array.from({ length: daysInMonth }, (_, day) => factory.createPlan(month, day));
   }
 
-  initializePlan(month, firstDow) {
-    const daysInMonth = OPT.DATE.daysInMonth[month];
-    const daysOfWeek = OPT.DATE.daysOfWeek;
+  getNextIndex(planArray, currentIndex, lastAssigned) {
+    let nextIndex = (currentIndex + 1) % planArray.length;
+    if (planArray[nextIndex] === lastAssigned) {
+      nextIndex = (nextIndex + 1) % planArray.length;
+    }
+    return nextIndex;
+  }
 
-    this.#plan = Array.from({ length: daysInMonth }, (_, day) => {
-      const dow = daysOfWeek[(daysOfWeek.indexOf(firstDow) + day) % 7];
-      return {
-        month: month,
-        day: day + 1,
-        dow: dow,
-        holidayMark: !this.#isWeekend(dow) && this.#isHoliday(month, day + 1),
-        name: ''
-      };
-    });
+  assignPlan(planArray, currentIndex, lastAssigned, plan) {
+    let index = this.getNextIndex(planArray, currentIndex, lastAssigned);
+    lastAssigned = planArray[index];
+    return { ...plan, name: lastAssigned, index };
   }
 
   makePlan(weekdayPlan, weekendPlan) {
-    let weekdayIndex = 0,
-      weekendIndex = 0,
-      lastAssigned = '';
+    let weekdayIndex = -1;
+    let weekendIndex = -1;
+    let lastAssigned = '';
 
     this.#plan = this.#plan.map((plan) => {
-      let name = '';
-      if (this.#isWeekend(plan.dow) || this.#isHoliday(plan.month, plan.day)) {
-        name = weekendPlan[weekendIndex];
-        if (name === lastAssigned) {
-          weekendPlan = this.moveNext(weekendPlan, weekendIndex);
-          name = weekendPlan[weekendIndex];
-        }
-        weekendIndex = (weekendIndex + 1) % weekendPlan.length;
+      let result;
+      if (isWeekend(plan.dow) || isHoliday(plan.month, plan.day)) {
+        result = this.assignPlan(weekendPlan, weekendIndex, lastAssigned, plan);
+        weekendIndex = result.index;
       } else {
-        name = weekdayPlan[weekdayIndex];
-        if (name === lastAssigned) {
-          weekdayPlan = this.moveNext(weekdayPlan, weekdayIndex);
-          name = weekdayPlan[weekdayIndex];
-        }
-        weekdayIndex = (weekdayIndex + 1) % weekdayPlan.length;
+        result = this.assignPlan(weekdayPlan, weekdayIndex, lastAssigned, plan);
+        weekdayIndex = result.index;
       }
-      lastAssigned = name;
-      return { ...plan, name };
+      lastAssigned = result.name;
+      return result;
     });
-  }
-
-  moveNext(arr, index) {
-    let temp = arr[index];
-    arr[index] = arr[(index + 1) % arr.length];
-    arr[(index + 1) % arr.length] = temp;
-    return arr;
-  }
-
-  #isWeekend(dow) {
-    const weekend = OPT.DATE.weekend;
-    if (weekend.includes(dow)) return true;
-    return false;
-  }
-
-  #isHoliday(month, day) {
-    const holidays = OPT.DATE.holiday[month];
-    if (holidays && holidays.includes(day)) return true;
-    return false;
   }
 
   getWorkPlan() {
