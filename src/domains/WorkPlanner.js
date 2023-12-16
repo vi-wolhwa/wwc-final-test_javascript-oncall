@@ -8,8 +8,8 @@ class WorkPlanner {
   }
 
   initializePlan(month, firstDow) {
-    const daysInMonth = OPT.DAYS_IN_MONTH[month];
-    const daysOfWeek = OPT.DAYS_OF_WEEK;
+    const daysInMonth = OPT.DATE.daysInMonth[month];
+    const daysOfWeek = OPT.DATE.daysOfWeek;
 
     this.#plan = Array.from({ length: daysInMonth }, (_, day) => {
       const dow = daysOfWeek[(daysOfWeek.indexOf(firstDow) + day) % 7];
@@ -64,7 +64,7 @@ class WorkPlanner {
   }
 
   #isHoliday(month, day) {
-    const holidays = OPT.HOLIDAY[month];
+    const holidays = OPT.DATE.holiday[month];
     if (holidays && holidays.includes(day)) return true;
     return false;
   }

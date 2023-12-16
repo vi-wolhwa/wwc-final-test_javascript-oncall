@@ -29,16 +29,8 @@ export const PROMPT = {
 
 export const ERROR = {
   prefix: '[ERROR]',
-  isNotNumeric: (name) => `${name}(은)는 실수 값이어야 합니다.`,
-  isNotInteger: (name) => `${name}(은)는 정수 값이어야 합니다.`,
   isNotIncluded: (name, array) => `${name}(은)는 [${array}]에 포함된 값이어야 합니다.`,
-  isNotEqual: (name, target) => `${name}(은)는 ${target}와 동일한 값이어야 합니다.`,
-  isNotGreaterThan: (name, threshold) => `${name}(은)는 ${threshold} 보다 큰 값이어야 합니다.`,
-  isNotAtLeast: (name, threshold) => `${name}(은)는 ${threshold} 보다 크거나 같은 값이어야 합니다.`,
   isNotAtMost: (name, threshold) => `${name}(은)는 ${threshold} 보다 작거나 같은 값이어야 합니다.`,
-  isNotLessThan: (name, threshold) => `${name}(은)는 ${threshold} 보다 작은 값이어야 합니다.`,
-  isNotPositive: (name) => `${name}(은)는 양수 값이어야 합니다.`,
-  isNotNegative: (name) => `${name}(은)는 음수 값이어야 합니다.`,
   isNotInRange: (name, min, max) => `${name}(은)는 [${min} ~ ${max}] 이내의 값이어야 합니다.`,
   isNotUnique: (name) => `${name}(은)는 중복된 값이 없어야 합니다.`
 };

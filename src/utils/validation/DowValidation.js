@@ -7,7 +7,7 @@ const { throwErrorIfInvalid } = ExceptionHandler;
 
 const DowValidation = {
   validate(dow) {
-    this.checkIsIncluded(dow, OPT.DAYS_OF_WEEK);
+    this.checkIsIncluded(dow, OPT.DATE.daysOfWeek);
   },
 
   checkIsIncluded(dow, array) {
