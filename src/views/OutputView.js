@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { MESSAGE, SIGN } from '../constants/Strings.js';
+import { EOL as LINE_SEPARATOR } from 'os';
 
 const OutputView = {
   printNewLine() {
@@ -22,7 +23,7 @@ const OutputView = {
           name: dayPlan.name
         });
       })
-      .join(SIGN.enter);
+      .join(LINE_SEPARATOR);
 
     Console.print(message);
   }

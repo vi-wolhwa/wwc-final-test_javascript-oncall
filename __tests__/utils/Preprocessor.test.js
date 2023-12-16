@@ -56,7 +56,7 @@ describe('[단위 테스트] Preprocessor', () => {
     test('입력을 소문자로 변환하는지 확인', () => {
       const input = 'HELLO';
       const output = 'hello';
-      expect(Preprocessor.convertStringToUpperCase(input)).toEqual(output);
+      expect(Preprocessor.convertStringToLowerCase(input)).toEqual(output);
     });
   });
 

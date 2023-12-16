@@ -9,13 +9,13 @@ const input = [
 
 const InputView = {
   async inputDate() {
-    return ' 5, 월'; //TEST
+    // return ' 5, 월'; //TEST
     return await Console.readLineAsync(PROMPT.date);
   },
 
   async inputWorkPlan(option) {
-    idx += 1;
-    return input[idx]; //TEST
+    // idx += 1;
+    // return input[idx]; //TEST
     return await Console.readLineAsync(PROMPT.workPlan(option));
   }
 };

@@ -65,7 +65,7 @@ class WorkPlanner {
 
   #isHoliday(month, day) {
     const holidays = OPT.HOLIDAY[month];
-    if (holidays.includes(day)) return true;
+    if (holidays && holidays.includes(day)) return true;
     return false;
   }
 
