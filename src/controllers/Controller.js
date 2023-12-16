@@ -16,7 +16,7 @@ class Controller {
     Validator.monthValidation(month);
     Validator.dowValidation(dow);
 
-    return [month, dow];
+    return [Number(month), dow];
   }
 
   async inputWorkPlan() {
@@ -32,8 +32,13 @@ class Controller {
   }
 
   makeWorkPlanner(month, dow, weekdayPlan, weekendPlan) {
-    console.log(month);
-    return new WorkPlanner(month, dow, weekdayPlan, weekendPlan);
+    const planner = new WorkPlanner(month, dow);
+    planner.makePlan(weekdayPlan, weekendPlan);
+    return planner;
+  }
+
+  printWorkPlan(workPlanner) {
+    OutputView.printWorkPlan(workPlanner.getWorkPlan());
   }
 }
 

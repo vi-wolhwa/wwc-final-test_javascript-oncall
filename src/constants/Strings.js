@@ -2,7 +2,8 @@ import deepFreeze from '../utils/deepFreeze.js';
 
 export const SIGN = {
   empty: '',
-  space: ' '
+  space: ' ',
+  enter: '\n'
 };
 
 export const NAME = {
@@ -15,7 +16,10 @@ export const NAME = {
 };
 
 export const MESSAGE = {
-  introduce: ''
+  holidayMark: '(휴일)',
+  workPlanOneDay: ({ month, day, dow, holidayMark, name }) => {
+    return `${month}월 ${day}일 ${dow}${holidayMark} ${name}`;
+  }
 };
 
 export const PROMPT = {

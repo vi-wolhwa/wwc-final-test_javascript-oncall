@@ -10,8 +10,9 @@ class App {
     const [month, dow] = await this.#controller.inputDate();
     const weekdayPlan = await this.#controller.inputWorkPlan(NAME.weekday);
     const weekendPlan = await this.#controller.inputWorkPlan(NAME.weekend);
-
     const workPlanner = this.#controller.makeWorkPlanner(month, dow, weekdayPlan, weekendPlan);
+
+    this.#controller.printWorkPlan(workPlanner);
   }
 }
 

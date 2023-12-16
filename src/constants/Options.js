@@ -5,9 +5,7 @@ const OPTIONS = {
     delemiter: ','
   },
   OUTPUT: {},
-  DATE: {
-    dow: ['월', '화', '수', '목', '금', '토', '일']
-  },
+  DAYS_OF_WEEK: ['월', '화', '수', '목', '금', '토', '일'],
   WORKPLAN: {
     minLength: 5,
     maxLength: 35
@@ -15,7 +13,7 @@ const OPTIONS = {
   NICKNAME: {
     maxLength: 5
   },
-  DAYS_OF_MONTH: {
+  DAYS_IN_MONTH: {
     1: 31,
     2: 28,
     3: 31,
@@ -28,6 +26,18 @@ const OPTIONS = {
     10: 31,
     11: 30,
     12: 31
+  },
+  HOLIDAY: {
+    1: [1],
+    3: [1],
+    5: [5],
+    6: [6],
+    8: [15],
+    10: [3, 9],
+    12: [25]
+  },
+  DATE: {
+    weekend: ['토', '일']
   }
 };
 
