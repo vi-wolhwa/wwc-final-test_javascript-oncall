@@ -2,7 +2,7 @@ import OPT from '../constants/Options.js';
 import PlanFactory from './plan/PlanFactory.js';
 import PlanUtility from './plan/PlanUtility.js';
 
-const { isHoliday, isWeekend } = PlanUtility;
+const { isHoliday, isWeekend, getNextIndex } = PlanUtility;
 
 class WorkPlanner {
   #plan;
@@ -10,19 +10,13 @@ class WorkPlanner {
   constructor(month, firstDow) {
     const factory = new PlanFactory(firstDow);
     const daysInMonth = OPT.DATE.daysInMonth[month];
-    this.#plan = Array.from({ length: daysInMonth }, (_, day) => factory.createPlan(month, day));
-  }
-
-  getNextIndex(planArray, currentIndex, lastAssigned) {
-    let nextIndex = (currentIndex + 1) % planArray.length;
-    if (planArray[nextIndex] === lastAssigned) {
-      nextIndex = (nextIndex + 1) % planArray.length;
-    }
-    return nextIndex;
+    this.#plan = Array.from({ length: daysInMonth }, (_, index) =>
+      factory.createPlan(month, index + 1)
+    );
   }
 
   assignPlan(planArray, currentIndex, lastAssigned, plan) {
-    let index = this.getNextIndex(planArray, currentIndex, lastAssigned);
+    let index = getNextIndex(planArray, currentIndex, lastAssigned);
     lastAssigned = planArray[index];
     return { ...plan, name: lastAssigned, index };
   }

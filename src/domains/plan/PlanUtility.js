@@ -10,6 +10,14 @@ class PlanUtility {
     const holidays = OPT.DATE.holiday[month];
     return holidays && holidays.includes(day);
   }
+
+  static getNextIndex(planArray, currentIndex, lastAssigned) {
+    let nextIndex = (currentIndex + 1) % planArray.length;
+    if (planArray[nextIndex] === lastAssigned) {
+      nextIndex = (nextIndex + 1) % planArray.length;
+    }
+    return nextIndex;
+  }
 }
 
 export default PlanUtility;

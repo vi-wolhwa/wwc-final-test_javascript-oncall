@@ -7,12 +7,12 @@ class PlanFactory {
     this.firstDow = firstDow;
   }
 
-  createPlan(month, day) {
+  createPlan(month, index) {
     const daysOfWeek = OPT.DATE.daysOfWeek;
-    const dow = daysOfWeek[(daysOfWeek.indexOf(this.firstDow) + day) % 7];
-    const holidayMark = !PlanUtility.isWeekend(dow) && PlanUtility.isHoliday(month, day + 1);
+    const dow = daysOfWeek[(daysOfWeek.indexOf(this.firstDow) + index - 1) % 7];
+    const holidayMark = !PlanUtility.isWeekend(dow) && PlanUtility.isHoliday(month, index);
 
-    return new Plan(month, day + 1, dow, holidayMark, '');
+    return new Plan(month, index, dow, holidayMark, '');
   }
 }
 
