@@ -25,6 +25,7 @@ const OutputView = {
       })
       .join(LINE_SEPARATOR);
 
+    this.printNewLine();
     Console.print(message);
   }
 };
