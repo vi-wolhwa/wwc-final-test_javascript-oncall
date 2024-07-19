@@ -16,9 +16,7 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: | 
-          cd frontend
-          npm install
+        run: npm install
 
       - name: Run Tests
         run: npm test
